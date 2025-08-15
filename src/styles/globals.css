@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* React-PDF layers for selectable text */
+@import "react-pdf/dist/esm/Page/TextLayer.css";
+/* @import "react-pdf/dist/esm/Page/AnnotationLayer.css"; */
+
+:root {
+  color-scheme: light dark;
+}
+
+html, body { height: 100%; }
+body { @apply bg-white text-gray-900 dark:bg-[#0b0f1a] dark:text-gray-100 font-sans; }
+
+/* nice scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #a3b3c2 transparent;
+}
+*::-webkit-scrollbar { height: 10px; width: 10px; }
+*::-webkit-scrollbar-thumb { background: rgba(148,163,184,.6); border-radius: 9999px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* cards & inputs */
+.card {
+  @apply rounded-2xl border border-gray-200/70 bg-white/80 backdrop-blur shadow-soft
+  dark:bg-white/5 dark:border-white/10;
+}
+.input {
+  @apply w-full rounded-xl border border-gray-300/70 bg-white/90 px-3 py-2
+  focus:outline-none focus:ring-2 focus:ring-brand-500/50 dark:bg-white/10 dark:border-white/10;
+}
+.btn {
+  @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium
+  bg-black text-white hover:opacity-90 active:opacity-80 dark:bg-white dark:text-black;
+}
+.btn-ghost {
+  @apply inline-flex items-center justify-center rounded-xl px-3 py-2
+  border border-gray-200/70 bg-white/70 hover:bg-white/90
+  dark:bg-white/10 dark:border-white/10;
+}
+
+/* subtle gradient background behind the app */
+.app-bg {
+  background:
+    radial-gradient(1200px 600px at 0% -10%, rgba(59,130,246,.12), transparent 60%),
+    radial-gradient(1000px 500px at 100% -10%, rgba(99,102,241,.14), transparent 60%);
+}

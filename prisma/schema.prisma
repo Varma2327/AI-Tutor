@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String       @id @default(cuid())
+  email     String       @unique
+  passwordHash String
+  createdAt DateTime     @default(now())
+  documents Document[]
+  sessions  ChatSession[]
+}
+
+model Document {
+  id        String        @id @default(cuid())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  blobUrl   String
+  pageCount Int           @default(0)
+  createdAt DateTime      @default(now())
+  pages     PageText[]
+  chats     ChatSession[]
+}
+
+model PageText {
+  id          String   @id @default(cuid())
+  documentId  String
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  page        Int
+  content     String
+  @@index([documentId, page])
+}
+
+model ChatSession {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documentId  String
+  document    Document      @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  title       String
+  createdAt   DateTime      @default(now())
+  messages    ChatMessage[]
+}
+
+model ChatMessage {
+  id            String       @id @default(cuid())
+  chatSessionId String
+  chatSession   ChatSession  @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+  role          String
+  content       String
+  createdAt     DateTime     @default(now())
+  @@index([chatSessionId, createdAt])
+}

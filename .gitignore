@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+
+# next
+.next/
+out/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# misc
+.DS_Store
+*.log
